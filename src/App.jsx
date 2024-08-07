@@ -1,70 +1,60 @@
-
-import Description from './components/Description/Description';
-import Options from './components/Options/Options';
-import Feedback from './components/Feedback/Feedback';
-import Notification from './components/Notification/Notification';
-
-import './App.css';
-
-import { useState, useEffect } from 'react';
+import ContactForm from "./components/ContactForm/ContactForm";
+import SearchBox from "./components/SearchBox/SearchBox";
+import ContactList from "./components/ContactList/ContactList";
+import { useState, useEffect } from "react";
+import "./App.css";
 
 const App = () => {
-  const initialFeedbackValues = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const initialContactList = [
+    { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+    { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+    { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+    { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+  ];
+
+  const getContactListFromLS = () => {
+    const savedContactList = window.localStorage.getItem("saved-contact-list");
+    return savedContactList !== null
+      ? JSON.parse(savedContactList)
+      : initialContactList;
   };
 
-  const getFeedbackFromLS = () => {
-    const savedFeedback = window.localStorage.getItem('saved-feedback');
-    return savedFeedback !== null
-      ? JSON.parse(savedFeedback)
-      : initialFeedbackValues;
-  };
-
-  const [feedbacks, setFeedbacks] = useState(getFeedbackFromLS);
+  const [contactList, setContactList] = useState(getContactListFromLS);
+  const [filterContacts, setFilterContacts] = useState("");
 
   useEffect(() => {
-    window.localStorage.setItem('saved-feedback', JSON.stringify(feedbacks));
-  }, [feedbacks]);
+    window.localStorage.setItem(
+      "saved-contact-list",
+      JSON.stringify(contactList)
+    );
+  }, [contactList]);
 
-  const updateFeedback = feedbackType => {
-    setFeedbacks({
-      ...feedbacks,
-      [feedbackType]: feedbacks[feedbackType] + 1,
+  const addContact = (newContact) => {
+    setContactList((prevContactList) => {
+      return [...prevContactList, newContact];
     });
   };
 
-  const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
-
-  const resetFeedback = () => {
-    setFeedbacks(initialFeedbackValues);
+  const deleteContact = (contactId) => {
+    setContactList((prevContactList) => {
+      return prevContactList.filter((contact) => contact.id !== contactId);
+    });
   };
-  const positiveFeedback = Math.round(
-    ((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100
+
+  const filteredContacts = contactList.filter((contact) =>
+    contact.name.toLowerCase().includes(filterContacts.toLowerCase().trim())
   );
 
   return (
-    <div className="appContainer">
-      <Description />
-      <Options
-        options={['good', 'neutral', 'bad']}
-        onOptionBtnClick={updateFeedback}
-        totalFeedback={totalFeedback}
-        onResetBtnClick={resetFeedback}
+    <>
+      <h1 className="main-title">Phonebook</h1>
+      <ContactForm onAddContact={addContact} />
+      <SearchBox value={filterContacts} onFilter={setFilterContacts} />
+      <ContactList
+        contactList={filteredContacts}
+        onDeleteContact={deleteContact}
       />
-      {totalFeedback ? (
-        <Feedback
-          goodFeedback={feedbacks.good}
-          neutralFeedback={feedbacks.neutral}
-          badFeedback={feedbacks.bad}
-          totalFeedback={totalFeedback}
-          positiveFeedback={positiveFeedback}
-        />
-      ) : (
-        <Notification />
-      )}
-    </div>
+    </>
   );
 };
 
