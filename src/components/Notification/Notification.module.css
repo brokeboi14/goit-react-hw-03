@@ -1,0 +1,30 @@
+
+.table {
+  width: 600px;
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  text-align: center;
+  margin: 0 auto 48px;
+}
+
+td,
+th {
+  width: calc(100% / 3);
+  border: 1px solid #000000;
+  padding: 4px;
+}
+
+.tableHead {
+  background-color: #2e2e2e;
+  color: #ffffff;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #c7c7c7;
+}
+
+.transactionType {
+  text-transform: capitalize;
+  text-align: start;
+  padding-left: 60px;
+}

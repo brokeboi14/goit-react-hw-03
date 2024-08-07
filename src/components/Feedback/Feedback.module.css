@@ -1,0 +1,23 @@
+.feedbackContainer {
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.feedbackContainer p {
+  display: flex;
+  align-items: center;
+}
+
+.iconGood {
+  color: rgb(13, 128, 0);
+  background-color: #ffff79;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+.iconBad {
+  color: #ca0000;
+  background-color: #ffff79;
+  border-radius: 50%;
+  margin-left: 8px;
+}

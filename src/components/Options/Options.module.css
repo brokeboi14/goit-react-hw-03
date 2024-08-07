@@ -1,0 +1,36 @@
+.buttonContainer {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .optionBtn {
+    text-transform: capitalize;
+    background-color: #ebebeb;
+    box-shadow: transparent;
+    transition: background-color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #00000063;
+    border-radius: 6px;
+    padding: 6px 16px;
+  }
+  
+  .optionBtn:hover,
+  .optionBtn:focus-visible,
+  .optionBtn:active {
+    outline: transparent;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.7);
+  }
+  
+  .good:hover {
+    background-color: #89fa92;
+  }
+  
+  .neutral:hover {
+    background-color: #f8fea9;
+  }
+  
+  .bad:hover {
+    background-color: #ffc3c3;
+  }
+  

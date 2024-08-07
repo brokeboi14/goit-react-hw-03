@@ -1,0 +1,17 @@
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    width: 786px;
+    border: 2px solid #b1fcfc;
+    border-radius: 12px;
+    /* background-color: #ffdee9; */
+    background-image: linear-gradient(
+      180deg,
+      rgb(228, 180, 255) 0%,
+      rgb(255, 163, 191) 100%
+    );
+  
+    padding: 16px;
+    margin: 0 auto;
+  }
+  
